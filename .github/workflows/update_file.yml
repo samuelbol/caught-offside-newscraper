@@ -1,0 +1,22 @@
+name: Update Logfile
+
+on:
+  schedule:
+    - cron: '*/1 * * * *'  # Run every 5 minutes
+
+jobs:
+  update-logfile:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Update Logfile
+        run: |
+          python -c "with open('logfile.txt', 'a', encoding='utf-8') as file: file.write('Updated content\n')"
+
+      - name: Commit and Push Changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add logfile.txt
+          git commit -m "Update logfile.txt"
+          git push
