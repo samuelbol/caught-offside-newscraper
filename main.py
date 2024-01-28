@@ -41,7 +41,7 @@ def scrape_caught_off_chls():
             continue
 
         try:
-            with open("logfile.txt", "r") as file:
+            with open("./logfile.txt", "r") as file:
                 saved_titles = [line.rstrip("\n") for line in file.readlines()]
                 if crd_title in saved_titles:
                     continue
@@ -83,7 +83,7 @@ def send_news_to_telegram(article_items):
                   f"📲 @JustCFC"
         # print(message)
         try:
-            with open("logfile.txt", "r", encoding='utf-8') as file:
+            with open("./logfile.txt", "r", encoding='utf-8') as file:
                 saved_titles = [line.rstrip("\n") for line in file.readlines()]
         except FileNotFoundError:
             saved_titles = []
@@ -101,7 +101,7 @@ def send_news_to_telegram(article_items):
             if response.status_code == 200:
                 print("Message sent successfully.")
 
-                with open("logfile.txt", "a", encoding='utf-8') as file:
+                with open("./logfile.txt", "a", encoding='utf-8') as file:
                     file.write(f"{title_}\n")
 
             else:
