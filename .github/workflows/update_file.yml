@@ -1,22 +1,32 @@
-name: Update Logfile
+name: Update File on GitHub
 
 on:
-  schedule:
-    - cron: '*/1 * * * *'  # Run every 5 minutes
+  push:
+    branches:
+      - main
 
 jobs:
-  update-logfile:
+  update-file:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Update Logfile
-        run: |
-          python -c "with open('logfile.txt', 'a', encoding='utf-8') as file: file.write('Updated content\n')"
+      - name: Checkout Repository
+        uses: actions/checkout@v2
 
-      - name: Commit and Push Changes
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+
+      - name: Install dependencies
         run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
-          git add logfile.txt
-          git commit -m "Update logfile.txt"
-          git push
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run Python script
+        run: python main.py
+
+      - name: Upload logfile as artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: logfile
+          path: logfile.txt
