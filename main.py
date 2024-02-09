@@ -37,7 +37,7 @@ def scrape_caught_off_chls():
         "div", class_="col-s-12 col-m-6 post-container post-standard")
     news_list = []
 
-    for news_card in news_cards[:3]:
+    for news_card in news_cards[:5]:
         crd_title = news_card.find("div",
                                    class_="img-txt c-std-mgn-b std-pad").a.text
         crd_img = news_card.find("picture").img.get('data-src', '')
@@ -56,9 +56,9 @@ def scrape_caught_off_chls():
         soup = BeautifulSoup(resp.content, "html.parser")
 
         card_contd = (soup.find("div", {"id": "article-body"})).find_all("p")
-        card_desc = card_contd[0].get_text() + "\n"
-        card_desc += card_contd[1].get_text()
-
+        card_desc = card_contd[0].get_text() + "\n\n"
+        card_desc += card_contd[1].get_text() 
+        
         news_list.append({
             "title": crd_title,
             "image": crd_img,
@@ -97,6 +97,8 @@ def send_news_to_telegram(article_items):
             if response.status_code == 200:
                 print("Message sent successfully.")
 
+                # Insert the text into the collection
+                collection.insert_one({"text": title_})
             else:
                 print(
                     f"Message sending failed. Status code: {response.status_code}"
