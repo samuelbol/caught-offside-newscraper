@@ -37,7 +37,7 @@ def scrape_caught_off_chls():
         "div", class_="col-s-12 col-m-6 post-container post-standard")
     news_list = []
 
-    for news_card in news_cards[:10]:
+    for news_card in news_cards[:3]:
         crd_title = news_card.find("div",
                                    class_="img-txt c-std-mgn-b std-pad").a.text
         crd_img = news_card.find("picture").img.get('data-src', '')
@@ -110,5 +110,5 @@ def main():
 
 scheduler = BlockingScheduler(timezone=nigerian_tz)
 scheduler.add_job(main, "interval", minutes=30)
-scheduler.start()
-# main()
+# scheduler.start()
+main()
