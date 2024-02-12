@@ -80,7 +80,7 @@ def send_news_to_telegram(article_items):
             continue
 
         message = f"🚨 *{title_}*\n\n{story_}\n\n" \
-                  f"_(via CaughtOffside)_\n\n" \
+                  f"*🔗 CaughtOffside*\n\n" \
                   f"📲 @JustCFC"
 
         saved_titles = collection.find_one({"text": title_})
