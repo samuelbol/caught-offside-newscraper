@@ -112,5 +112,5 @@ def main():
 
 scheduler = BlockingScheduler(timezone=nigerian_tz)
 scheduler.add_job(main, "interval", hours=2)
-# scheduler.start()
-main()
+scheduler.start()
+# main()
